@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import hashlib
 import logging
+import os
 
 app = FastAPI()
 
@@ -19,14 +22,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ✅ Serve static frontend files
+frontend_path = os.path.join(os.getcwd(), "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+@app.get("/")
+def serve_frontend():
+    """ Serves the frontend HTML file """
+    index_path = os.path.join(frontend_path, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"error": "Frontend not found"}
+
+# ✅ URL Analysis API
 class URLRequest(BaseModel):
     url: str
 
 cached_results = {}
-
-@app.get("/")  # ✅ Added this route to fix the "Not Found" error
-def home():
-    return {"message": "AI Threat Intelligence System is running!"}
 
 @app.post("/analyze")
 async def analyze_url(request: URLRequest):
@@ -51,4 +64,3 @@ async def analyze_url(request: URLRequest):
     except Exception as e:
         logger.error(f"Error analyzing URL {request.url}: {str(e)}")
         return {"error": "Internal Server Error"}
-
