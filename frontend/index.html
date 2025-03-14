@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Threat Intelligence</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI-POWERED THREAT INTELLIGENCE</h1>
+        <p>Analyze website URLs for potential threats using AI and real-time scanning.</p>
+        
+        <div class="input-container">
+            <input type="text" id="urlInput" placeholder="Enter a website URL">
+            <button id="analyzeBtn">
+                <span class="icon">🔍</span> Analyze
+            </button>
+        </div>
+
+        <div id="resultContainer" class="hidden">
+            <div class="result-box">
+                <h3>✅ URL:</h3>
+                <p id="urlOutput"></p>
+                <p><span class="emoji">🔥</span> <strong>Threat Level:</strong> <span id="threatLevel"></span></p>
+                <p><span class="emoji">🔥</span> <strong>Score:</strong> <span id="threatScore"></span>/100</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
