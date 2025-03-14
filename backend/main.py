@@ -24,6 +24,10 @@ class URLRequest(BaseModel):
 
 cached_results = {}
 
+@app.get("/")  # ✅ Added this route to fix the "Not Found" error
+def home():
+    return {"message": "AI Threat Intelligence System is running!"}
+
 @app.post("/analyze")
 async def analyze_url(request: URLRequest):
     try:
@@ -47,3 +51,4 @@ async def analyze_url(request: URLRequest):
     except Exception as e:
         logger.error(f"Error analyzing URL {request.url}: {str(e)}")
         return {"error": "Internal Server Error"}
+
