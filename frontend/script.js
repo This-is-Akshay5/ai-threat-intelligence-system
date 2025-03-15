@@ -6,7 +6,7 @@ document.getElementById('analyzeBtn').addEventListener('click', () => {
         return;
     }
 
-    fetch('http://127.0.0.1:8000/analyze', {  // Ensure this matches your backend URL
+    fetch('https://ai-threat-intelligence-system.onrender.com/analyze', {  // Ensure this matches your backend URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url })
